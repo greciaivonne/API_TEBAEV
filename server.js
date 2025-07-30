@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const errorHandler = require('./middleware/errorMiddleware');
+const verificacionRoutes = require('./routes/verificacion');
 
 const app = express();
 
@@ -18,6 +19,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Rutas
 app.use('/api/auth', authRoutes);
+app.use('/api/verificar', verificacionRoutes);
 
 // Middleware de error
 app.use(errorHandler);
