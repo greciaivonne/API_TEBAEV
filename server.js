@@ -6,10 +6,18 @@ const authRoutes = require('./routes/authRoutes');
 const errorHandler = require('./middleware/errorMiddleware');
 const verificacionRoutes = require('./routes/verificacion');
 
+const passwordRoutes = require('./routes/passwordRoutes');
+
 const app = express();
 
 // Middleware
-app.use(cors());
+
+app.use(cors({
+  origin: 'http://localhost:4200', // O el puerto donde corre Angular
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Conexión a MongoDB
@@ -18,8 +26,10 @@ mongoose.connect(process.env.MONGO_URI)
   .catch(err => console.error('Error de conexión a MongoDB:', err));
 
 // Rutas
-app.use('/api/auth', authRoutes);
 app.use('/api/verificar', verificacionRoutes);
+
+app.use('/api/auth', authRoutes);
+app.use('/api/auth', passwordRoutes);
 
 // Middleware de error
 app.use(errorHandler);

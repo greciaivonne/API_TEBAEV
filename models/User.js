@@ -26,20 +26,20 @@ const UserSchema = new mongoose.Schema({
     enum: ['admin', 'superadmin'],
     default: 'admin'
   },
+  resetToken: String,
+  resetTokenExpires: Date,
   createdAt: {
     type: Date,
     default: Date.now
   }
 });
 
-// Encriptar contraseña antes de guardar
 UserSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 12);
   next();
 });
 
-// Método para comparar contraseñas
 UserSchema.methods.comparePassword = async function(candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };

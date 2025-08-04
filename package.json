@@ -8,6 +8,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.15.1",
     "multer": "^2.0.1",
+    "nodemailer": "^7.0.5",
+    "uuid": "^11.1.0",
     "validator": "^13.15.15"
   }
 }
